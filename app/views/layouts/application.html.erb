@@ -9,7 +9,7 @@
   </head>
   
   <body>
-    <header>
+  <header>
   <div class="header-logo">
     <%= link_to("TweetApp", "/") %>
   </div>
@@ -26,6 +26,12 @@
   </ul>
 </header>
     <!-- 各ビューファイルは以下のyieldに代入され、application.html.erbの一部となる -->
+    <!-- flash[:notice]に代入されたメッセージ-->
+    <% if flash[:notice] %>
+     <div class="flash">  
+      <%= flash[:notice] %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
