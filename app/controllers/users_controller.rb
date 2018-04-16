@@ -3,7 +3,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
   
-  # showアクションを追加してください
   def show
     @user = User.find_by(id: params[:id])
   end
@@ -13,7 +12,11 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(name: params[:name], email: params[:email])
+    @user = User.new(
+      name: params[:name],
+      email: params[:email],
+      image_name: "default_user.gif"
+    )
     if @user.save
       flash[:notice] = "ユーザー登録が完了しました"
       redirect_to("/users/#{@user.id}")
@@ -30,6 +33,13 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.name = params[:name]
     @user.email = params[:email]
+    
+    # 画像を保存する処理を追加してください
+    if params[:image]
+      @user.image_name = "#{@user.id}.gif"
+      image = params[:image]
+      File.binwrite("public/user_images/#{@user.image_name}", image.read)
+    end
     
     if @user.save
       flash[:notice] = "ユーザー情報を編集しました"
