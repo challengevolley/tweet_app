@@ -11,24 +11,44 @@
   <body>
   <header>
   <div class="header-logo">
-    <%= link_to("TweetApp", "/") %>
+     <% if @current_user %>
+          <%= link_to("TweetApp", "/posts/index") %>
+        <% else %>
+          <%= link_to("TweetApp", "/") %>
+        <% end %>
   </div>
   <ul class="header-menus">
+      <!-- ログイン中のユーザーの名前を表示し、詳細ページのリンクとなるように書き換えてください -->
+     <% if @current_user %>
+      <li>
+         <%= link_to(@current_user.name, "/users/#{@current_user.id}") %>
+      </li> 
+      <!-- ログインしている状態でヘッダーに表示するHTMLを貼り付けてください -->
+          <li>
+            <%= link_to("投稿一覧", "/posts/index") %>
+          </li>
+          <li>
+            <%= link_to("新規投稿", "/posts/new") %>
+          </li>
+          <li>
+            <%= link_to("ユーザー一覧", "/users/index") %>
+          </li>
+          <li>
+         <!-- ログアウト用のリンクを追加してください -->
+            <%= link_to("ログアウト", "/logout", {method: :post}) %>
+          </li>
+    <% else %>
      <li>
      <%= link_to("About TweetApp", "/about") %>
      </li>
     <li>
-     <%= link_to("PostsList", "/posts/index") %>
-    </li>
-    <li>
-     <%= link_to("New Post", "/posts/new") %>
-    </li>
-    <li>
-     <%= link_to("User List", "/users/index") %>
-    </li>
-    <li>
      <%= link_to("SignUp", "/signup") %>
     </li>
+    <li>
+     <!-- ログインページへのリンク -->
+     <%= link_to("Login", "/login") %>
+    </li>
+    <% end %>
   </ul>
 </header>
     <!-- 各ビューファイルは以下のyieldに代入され、application.html.erbの一部となる -->

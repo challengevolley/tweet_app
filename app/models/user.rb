@@ -1,7 +1,8 @@
 class User < ApplicationRecord
-    # nameカラムに関するバリデーションを作成してください
+  # nameカラムに関するバリデーションを作成してください
   validates :name, {presence: true}
-  
   # emailカラムに関するバリデーションを作成してください
   validates :email, {presence: true, uniqueness: true}
+  # passwordカラムにバリデーションを設定
+  validates :password, {presence: true}
 end
