@@ -11,6 +11,8 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
      # 変数@userを定義
     @user = @post.user
+    # 変数@likes_count
+    @likes_count = Like.where(post_id: @post.id).count
   end
   
   def new
